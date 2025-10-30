@@ -12,16 +12,25 @@ import io
 from fastapi.responses import StreamingResponse
 app = FastAPI()
 
+@app.get("/")
+def root():
+    return {"status": "ok", "message": "backend alive"}
+
 # ──────────────────────────────
 # CORS 설정 (React 3000/3001 허용)
 # ──────────────────────────────
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://localhost:3001"],
+    allow_origins=[
+        "http://localhost:3000",
+        "http://localhost:3001",
+        "https://sendy-slip-web-github-io.vercel.app"
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 # ──────────────────────────────
 # 엑셀 필터 함수
