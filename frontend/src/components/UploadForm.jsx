@@ -2,6 +2,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 
+const API_BASE = "https://sendy-slip-web-github-io.onrender.com"; // ✅ Render 백엔드 주소
+
 export default function UploadForm({ setRecords }) {
   const [file, setFile] = useState(null);
 
@@ -16,7 +18,7 @@ export default function UploadForm({ setRecords }) {
     const fd = new FormData();
     fd.append("file", file);
     try {
-      const res = await axios.post("http://localhost:8000/preview_excel/", fd, {
+      const res = await axios.post(`${API_BASE}/preview_excel/`, fd, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       setRecords(res.data.items || []);
@@ -33,9 +35,9 @@ export default function UploadForm({ setRecords }) {
     const fd = new FormData();
     fd.append("file", file);
     try {
-      const res = await axios.post("http://localhost:8000/filter_excel/", fd, {
+      const res = await axios.post(`${API_BASE}/filter_excel/`, fd, {
         headers: { "Content-Type": "multipart/form-data" },
-        responseType: "blob", // 🔹 중요: 파일 다운로드를 위해 blob으로
+        responseType: "blob", // 🔹 파일 다운로드를 위해 blob으로
       });
 
       // 브라우저에서 다운로드 트리거
@@ -56,7 +58,14 @@ export default function UploadForm({ setRecords }) {
   return (
     <div style={{ margin: "16px 0" }}>
       <input type="file" accept=".xlsx,.xls" onChange={onPick} />
-      <div style={{ marginTop: 12, display: "flex", gap: 8, justifyContent: "center" }}>
+      <div
+        style={{
+          marginTop: 12,
+          display: "flex",
+          gap: 8,
+          justifyContent: "center",
+        }}
+      >
         <button onClick={handlePreview}>미리보기 생성</button>
         <button onClick={handleDownloadFiltered}>필터된 엑셀 다운로드</button>
       </div>
