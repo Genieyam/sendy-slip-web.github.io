@@ -45,8 +45,8 @@ def filter_excel_data(df: pd.DataFrame) -> pd.DataFrame:
         lVal = str(row.get("하차지상세", "")).strip().lower()    # L열
         if (
             "scm" in fVal
-            or "동신프라텍" in iVal or "엔피씨" in iVal or "물류센터" in iVal or "골드라인" in iVal
-            or "동신프라텍" in lVal or "엔피씨" in lVal or "물류센터" in lVal or "골드라인" in lVal
+            or "동신프라텍" in iVal or "엔피씨" in iVal or "물류센터" in iVal or "골드라인" in iVal or "성은글로벌" in iVal
+            or "동신프라텍" in lVal or "엔피씨" in lVal or "물류센터" in lVal or "골드라인" in lVal or "성은글로벌" in lVal
         ):
             drop_idx.append(i)
     return df.drop(index=drop_idx).reset_index(drop=True)
